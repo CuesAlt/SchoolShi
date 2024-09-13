@@ -43,19 +43,12 @@ h1 {
     border-radius: 10px;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .game-box:hover {
     background-color: #555555;
-}
-
-.hidden {
-    display: none;
-}
-
-#game1-content {
-    padding: 20px;
-    text-align: center;
 }
 
 /* Calculator Styles */
