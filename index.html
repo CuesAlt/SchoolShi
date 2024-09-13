@@ -3,14 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Website</title>
+    <title>Devin’s Website</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-        h1 { color: #333; }
+        /* Basic Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Title Styling */
+        h1 {
+            text-align: center;
+            color: linear-gradient(to right, purple, green);
+            font-size: 3em;
+            margin-top: 20px;
+        }
+
+        /* Container for Boxes */
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Individual Box Styling */
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #333;
+            margin: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .box:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        /* Dark Mode & Light Mode Toggle Switch */
+        .switch {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .switch input {
+            display: none;
+        }
+
+        .slider {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .slider::before {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        input:checked + .slider::before {
+            transform: translateX(30px);
+        }
+
+        input:checked + .slider {
+            background-color: #666;
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background-color: white;
+            color: black;
+        }
+
+        body.light-mode .box {
+            background-color: #ddd;
+            color: black;
+        }
+
+        body.light-mode .box:hover {
+            background-color: #bbb;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My GitHub Pages Website!</h1>
-    <p>This is a simple GitHub Pages site.</p>
+    <h1>Devin’s Website</h1>
+
+    <!-- Dark Mode Switch -->
+    <div class="switch">
+        <label>
+            <input type="checkbox" id="modeSwitch">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <!-- Container for Boxes -->
+    <div class="box-container" id="boxContainer">
+        <!-- JavaScript will generate boxes here -->
+    </div>
+
+    <script>
+        // JavaScript for Light/Dark Mode Toggle
+        const modeSwitch = document.getElementById('modeSwitch');
+        const body = document.body;
+
+        modeSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('light-mode');
+            } else {
+                body.classList.remove('light-mode');
+            }
+        });
+
+        // JavaScript to Generate Multiple Boxes
+        const boxContainer = document.getElementById('boxContainer');
+        const games = [
+            { name: 'Game 1', url: '#' },
+            { name: 'Game 2', url: '#' },
+            { name: 'Game 3', url: '#' },
+            { name: 'Game 4', url: '#' },
+            { name: 'Game 5', url: '#' },
+            { name: 'Game 6', url: '#' },
+            { name: 'Game 7', url: '#' },
+            { name: 'Game 8', url: '#' },
+            { name: 'Game 9', url: '#' },
+            { name: 'Game 10', url: '#' },
+            // Add more games here if needed
+        ];
+
+        for (let i = 0; i < 50; i++) {  // Adjust this number for more boxes
+            const game = games[i % games.length];
+            const box = document.createElement('div');
+            box.classList.add('box');
+            box.innerHTML = `<a href="${game.url}" style="text-decoration:none; color: inherit;">${game.name}</a>`;
+            boxContainer.appendChild(box);
+        }
+    </script>
 </body>
 </html>
