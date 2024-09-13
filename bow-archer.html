@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bow Archer - Devin's Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Add styles for the game canvas */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #gameCanvas {
+            border: 1px solid #ffffff;
+        }
+
+        #score, #health {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bow Archer</h1>
+    </header>
+
+    <main>
+        <div class="game-container">
+            <div id="score">Score: 0</div>
+            <div id="health">Health: 100</div>
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+        </div>
+    </main>
+
+    <script src="bow-archer.js"></script>
+</body>
+</html>
