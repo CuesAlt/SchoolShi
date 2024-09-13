@@ -3,86 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Devin’s Website</title>
-    <style>
-        /* Basic Styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-        }
-
-        /* Title Styling */
-        h1 {
-            text-align: center;
-            color: purple;
-            font-size: 3em;
-            margin-top: 20px;
-        }
-
-        /* Container for Boxes */
-        .box-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        /* Individual Box Styling */
-        .box {
-            width: 150px;
-            height: 150px;
-            background-color: #333;
-            margin: 10px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 1.2em;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-
-        .box:hover {
-            background-color: #555;
-            transform: scale(1.05);
-        }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Devin's Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Devin’s Website</h1>
+    <header>
+        <h1>Devin's Website</h1>
+    </header>
 
-    <!-- Container for Boxes -->
-    <div class="box-container" id="boxContainer">
-        <!-- JavaScript will generate boxes here -->
-    </div>
-
-    <script>
-        // JavaScript to Generate Multiple Boxes
-        const boxContainer = document.getElementById('boxContainer');
-        const games = [
-            { name: 'Game 1', url: '#' },
-            { name: 'Game 2', url: '#' },
-            { name: 'Game 3', url: '#' },
-            { name: 'Game 4', url: '#' },
-            { name: 'Game 5', url: '#' },
-            { name: 'Game 6', url: '#' },
-            { name: 'Game 7', url: '#' },
-            { name: 'Game 8', url: '#' },
-            { name: 'Game 9', url: '#' },
-            { name: 'Game 10', url: '#' },
-            // Add more games here if needed
-        ];
-
-        for (let i = 0; i < 50; i++) {  // Adjust this number for more boxes
-            const game = games[i % games.length];
-            const box = document.createElement('div');
-            box.classList.add('box');
-            box.innerHTML = `<a href="${game.url}" style="text-decoration:none; color: inherit;">${game.name}</a>`;
-            boxContainer.appendChild(box);
-        }
-    </script>
+    <main>
+        <div class="game-grid">
+            <div class="game-box">Game 1</div>
+            <div class="game-box">Game 2</div>
+            <div class="game-box">Game 3</div>
+            <div class="game-box">Game 4</div>
+            <div class="game-box">Game 5</div>
+            <div class="game-box">Game 6</div>
+        </div>
+    </main>
 </body>
 </html>
