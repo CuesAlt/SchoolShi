@@ -5,11 +5,15 @@ const healthElement = document.getElementById('health');
 
 let score = 0;
 let health = 100;
+let playerHealth = 100;
 let targets = [];
 let arrows = [];
+let enemyArrows = [];
 let player = { x: 100, y: canvas.height / 2, width: 50, height: 100 };
 let pulling = false;
-let pullStartTime = 0;
+let pullStartX = 0;
+let pullStartY = 0;
+let pullDistance = 0;
 
 // Target class
 class Target {
@@ -20,6 +24,7 @@ class Target {
         this.height = 100;
         this.health = 100;
         this.healthBar = { x: this.x, y: this.y - 20, width: this.width, height: 10 };
+        this.lastShotTime = 0;
     }
 
     draw() {
@@ -39,6 +44,16 @@ class Target {
 
     isHit(arrow) {
         return arrow.x > this.x && arrow.x < this.x + this.width && arrow.y > this.y && arrow.y < this.y + this.height;
+    }
+
+    shoot() {
+        const now = Date.now();
+        if (now - this.lastShotTime > 2000) { // Shoot every 2 seconds
+            this.lastShotTime = now;
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 3;
+            enemyArrows.push(new Arrow(this.x, this.y + this.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
+        }
     }
 }
 
@@ -98,6 +113,7 @@ function init() {
     targets.push(new Target(600, 250));
     targets.push(new Target(300, 300));
     document.addEventListener('mousedown', startPulling);
+    document.addEventListener('mousemove', pullBackBow);
     document.addEventListener('mouseup', shootArrow);
     requestAnimationFrame(gameLoop);
 }
@@ -125,11 +141,6 @@ function gameLoop() {
                     score += 10;
                 }
                 arrows.splice(index, 1); // Remove arrow
-                health -= 10;
-                if (health <= 0) {
-                    alert('Game Over');
-                    document.location.reload();
-                }
                 updateUI();
             }
         });
@@ -140,37 +151,49 @@ function gameLoop() {
         }
     });
 
+    // Update and draw enemy arrows
+    enemyArrows.forEach((arrow, index) => {
+        arrow.update();
+        arrow.draw();
+
+        // Check if enemy arrow hits player
+        if (arrow.x > player.x && arrow.x < player.x + player.width && arrow.y > player.y && arrow.y < player.y + player.height) {
+            playerHealth -= 10;
+            if (playerHealth <= 0) {
+                alert('Game Over');
+                document.location.reload();
+            }
+            enemyArrows.splice(index, 1); // Remove arrow
+            updateUI();
+        }
+
+        // Remove arrow if out of canvas
+        if (arrow.x < 0 || arrow.x > canvas.width || arrow.y < 0 || arrow.y > canvas.height) {
+            enemyArrows.splice(index, 1);
+        }
+    });
+
+    // Make targets shoot back
+    targets.forEach(target => target.shoot());
+
     // Draw targets
     targets.forEach(target => target.draw());
+
+    // Draw player health bar
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 200, 20);
+    ctx.fillStyle = 'green';
+    ctx.fillRect(10, 10, 200 * (playerHealth / 100), 20);
 
     requestAnimationFrame(gameLoop);
 }
 
 // Start pulling back the bow
-function startPulling() {
+function startPulling(event) {
     pulling = true;
-    pullStartTime = Date.now();
+    pullStartX = event.clientX;
+    pullStartY = event.clientY;
 }
 
-// Shoot an arrow
-function shootArrow(event) {
-    if (pulling) {
-        const rect = canvas.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const angle = Math.atan2(y - player.y, x - player.x);
-        const pullDuration = Math.max(500, Date.now() - pullStartTime); // Minimum pull duration is 500ms
-        const speed = Math.min(10, pullDuration / 50); // Speed depends on pull duration
-        arrows.push(new Arrow(player.x + player.width, player.y + player.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
-        pulling = false;
-    }
-}
-
-// Update score and health display
-function updateUI() {
-    scoreElement.textContent = `Score: ${score}`;
-    healthElement.textContent = `Health: ${health}`;
-}
-
-// Start the game
-init();
+// Update pull distance and shoot arrow
+function
