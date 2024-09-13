@@ -8,6 +8,8 @@ let health = 100;
 let targets = [];
 let arrows = [];
 let player = { x: 100, y: canvas.height / 2, width: 50, height: 100 };
+let pulling = false;
+let pullStartTime = 0;
 
 // Target class
 class Target {
@@ -17,6 +19,7 @@ class Target {
         this.width = 50;
         this.height = 100;
         this.health = 100;
+        this.healthBar = { x: this.x, y: this.y - 20, width: this.width, height: 10 };
     }
 
     draw() {
@@ -26,6 +29,12 @@ class Target {
         ctx.fillStyle = 'black';
         ctx.fillRect(this.x + this.width / 4, this.y - 20, this.width / 2, 20); // head
         ctx.fillRect(this.x + this.width / 2 - 5, this.y + this.height / 2, 10, this.height / 2); // body
+
+        // Draw health bar
+        ctx.fillStyle = 'red';
+        ctx.fillRect(this.healthBar.x, this.healthBar.y, this.healthBar.width, this.healthBar.height);
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.healthBar.x, this.healthBar.y, this.healthBar.width * (this.health / 100), this.healthBar.height);
     }
 
     isHit(arrow) {
@@ -88,7 +97,8 @@ function drawPlayer() {
 function init() {
     targets.push(new Target(600, 250));
     targets.push(new Target(300, 300));
-    document.addEventListener('click', shootArrow);
+    document.addEventListener('mousedown', startPulling);
+    document.addEventListener('mouseup', shootArrow);
     requestAnimationFrame(gameLoop);
 }
 
@@ -108,6 +118,8 @@ function gameLoop() {
         targets.forEach((target, targetIndex) => {
             if (target.isHit(arrow)) {
                 target.health -= 20;
+                target.healthBar.x = target.x;
+                target.healthBar.y = target.y - 20;
                 if (target.health <= 0) {
                     targets.splice(targetIndex, 1);
                     score += 10;
@@ -134,14 +146,24 @@ function gameLoop() {
     requestAnimationFrame(gameLoop);
 }
 
+// Start pulling back the bow
+function startPulling() {
+    pulling = true;
+    pullStartTime = Date.now();
+}
+
 // Shoot an arrow
 function shootArrow(event) {
-    const rect = canvas.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    const angle = Math.atan2(y - player.y, x - player.x);
-    const speed = 5;
-    arrows.push(new Arrow(player.x + player.width, player.y + player.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
+    if (pulling) {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const angle = Math.atan2(y - player.y, x - player.x);
+        const pullDuration = Math.max(500, Date.now() - pullStartTime); // Minimum pull duration is 500ms
+        const speed = Math.min(10, pullDuration / 50); // Speed depends on pull duration
+        arrows.push(new Arrow(player.x + player.width, player.y + player.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
+        pulling = false;
+    }
 }
 
 // Update score and health display
