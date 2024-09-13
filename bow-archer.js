@@ -4,7 +4,6 @@ const scoreElement = document.getElementById('score');
 const healthElement = document.getElementById('health');
 
 let score = 0;
-let health = 100;
 let playerHealth = 100;
 let targets = [];
 let arrows = [];
@@ -13,7 +12,9 @@ let player = { x: 100, y: canvas.height / 2, width: 50, height: 100 };
 let pulling = false;
 let pullStartX = 0;
 let pullStartY = 0;
-let pullDistance = 0;
+let pullStartTime = 0;
+let shootCooldown = 0;
+const enemyShootCooldown = 2000; // 2 seconds for enemies to shoot
 
 // Target class
 class Target {
@@ -23,8 +24,8 @@ class Target {
         this.width = 50;
         this.height = 100;
         this.health = 100;
+        this.lastShootTime = Date.now();
         this.healthBar = { x: this.x, y: this.y - 20, width: this.width, height: 10 };
-        this.lastShotTime = 0;
     }
 
     draw() {
@@ -47,13 +48,9 @@ class Target {
     }
 
     shoot() {
-        const now = Date.now();
-        if (now - this.lastShotTime > 2000) { // Shoot every 2 seconds
-            this.lastShotTime = now;
-            const angle = Math.random() * Math.PI * 2;
-            const speed = 3;
-            enemyArrows.push(new Arrow(this.x, this.y + this.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
-        }
+        const angle = Math.atan2(player.y - this.y, player.x - this.x);
+        const speed = 3;
+        enemyArrows.push(new Arrow(this.x, this.y + this.height / 2, speed * Math.cos(angle), speed * Math.sin(angle)));
     }
 }
 
@@ -113,7 +110,7 @@ function init() {
     targets.push(new Target(600, 250));
     targets.push(new Target(300, 300));
     document.addEventListener('mousedown', startPulling);
-    document.addEventListener('mousemove', pullBackBow);
+    document.addEventListener('mousemove', updatePulling);
     document.addEventListener('mouseup', shootArrow);
     requestAnimationFrame(gameLoop);
 }
@@ -151,12 +148,15 @@ function gameLoop() {
         }
     });
 
+    // Draw targets
+    targets.forEach(target => target.draw());
+
     // Update and draw enemy arrows
     enemyArrows.forEach((arrow, index) => {
         arrow.update();
         arrow.draw();
 
-        // Check if enemy arrow hits player
+        // Check if enemy arrow hits the player
         if (arrow.x > player.x && arrow.x < player.x + player.width && arrow.y > player.y && arrow.y < player.y + player.height) {
             playerHealth -= 10;
             if (playerHealth <= 0) {
@@ -173,17 +173,14 @@ function gameLoop() {
         }
     });
 
-    // Make targets shoot back
-    targets.forEach(target => target.shoot());
-
-    // Draw targets
-    targets.forEach(target => target.draw());
-
-    // Draw player health bar
-    ctx.fillStyle = 'red';
-    ctx.fillRect(10, 10, 200, 20);
-    ctx.fillStyle = 'green';
-    ctx.fillRect(10, 10, 200 * (playerHealth / 100), 20);
+    // Enemy shooting logic
+    targets.forEach(target => {
+        const currentTime = Date.now();
+        if (currentTime - target.lastShootTime > enemyShootCooldown) {
+            target.shoot();
+            target.lastShootTime = currentTime;
+        }
+    });
 
     requestAnimationFrame(gameLoop);
 }
@@ -193,7 +190,38 @@ function startPulling(event) {
     pulling = true;
     pullStartX = event.clientX;
     pullStartY = event.clientY;
+    pullStartTime = Date.now();
 }
 
-// Update pull distance and shoot arrow
-function
+// Update pulling state
+function updatePulling(event) {
+    if (pulling) {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        pullBackDistance = Math.min(300, pullStartX - x); // Maximum pull back distance
+    }
+}
+
+// Shoot an arrow
+function shootArrow(event) {
+    if (pulling) {
+        const rect = canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const angle = Math.atan2(y - player.y, x - player.x);
+        const pullDuration = Math.max(500, Date.now() - pullStartTime); // Minimum pull duration is 500ms
+        const speed = Math.min(10, pullDuration / 50); // Speed depends on pull duration
+        const distance = Math.max(50, pullBackDistance / 2); // Distance based on pull back
+        arrows.push(new Arrow(player.x + player.width, player.y + player.height / 2, distance * Math.cos(angle), distance * Math.sin(angle)));
+        pulling = false;
+    }
+}
+
+// Update score and health display
+function updateUI() {
+    scoreElement.textContent = `Score: ${score}`;
+    healthElement.textContent = `Health: ${playerHealth}`;
+}
+
+// Start the game
+init();
