@@ -1,93 +1,59 @@
-/* General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General body styling */
 body {
-    background-color: #121212;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    background-color: #1e1e1e; /* Dark background for permanent dark mode */
+    color: white; /* White text for contrast */
+    font-family: Arial, sans-serif; /* Simple font choice */
 }
 
-header {
+/* Header styling */
+header h1 {
     text-align: center;
     padding: 20px;
-    background-color: #1e1e1e;
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: #ffffff;
-}
-
-/* Game Grid */
+/* Grid layout for game boxes */
 .game-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for game boxes */
+    grid-gap: 20px;
     max-width: 1200px;
-    margin: auto;
+    margin: 20px auto; /* Center the grid */
+    padding: 20px;
 }
 
+/* Styling for individual game boxes */
 .game-box {
-    background-color: #333333;
+    background-color: #333; /* Dark background for boxes */
+    color: white; /* White text */
     padding: 40px;
     text-align: center;
-    font-size: 1.2rem;
-    border-radius: 10px;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    text-decoration: none;
-    color: #ffffff;
+    border-radius: 8px;
+    font-size: 18px;
+    text-decoration: none; /* Remove underline from links */
 }
 
+/* Hover effect for game boxes */
 .game-box:hover {
-    background-color: #555555;
+    background-color: #444; /* Lighter dark color when hovered */
+    cursor: pointer; /* Pointer cursor on hover */
 }
 
-/* Calculator Styles */
-.calculator {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    width: 300px;
-}
-
-#calc-display {
-    width: 100%;
+/* Free money button styling */
+.free-money {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: yellow; /* Yellow background for attention */
     padding: 10px;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    background-color: #333333;
-    color: #ffffff;
-    border: none;
-    text-align: right;
-}
-
-.calc-buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
-
-.calc-buttons button {
-    padding: 20px;
-    font-size: 1.5rem;
-    background-color: #444444;
-    color: #ffffff;
-    border: none;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none; /* No underline */
+    color: black; /* Black text */
 }
 
-.calc-buttons button:hover {
-    background-color: #666666;
+/* Hover effect for the free money button */
+.free-money:hover {
+    background-color: gold; /* Gold background on hover */
+    cursor: pointer; /* Pointer cursor on hover */
 }
