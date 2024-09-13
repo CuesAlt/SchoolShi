@@ -16,6 +16,13 @@ let pullStartTime = 0;
 let shootCooldown = 0;
 const enemyShootCooldown = 2000; // 2 seconds for enemies to shoot
 
+// Utility function to generate random position
+function getRandomPosition() {
+    const x = Math.floor(Math.random() * (canvas.width - 50));
+    const y = Math.floor(Math.random() * (canvas.height - 100));
+    return { x, y };
+}
+
 // Target class
 class Target {
     constructor(x, y) {
@@ -107,8 +114,10 @@ function drawPlayer() {
 
 // Initialize game
 function init() {
-    targets.push(new Target(600, 250));
-    targets.push(new Target(300, 300));
+    for (let i = 0; i < 2; i++) {
+        const { x, y } = getRandomPosition();
+        targets.push(new Target(x, y));
+    }
     document.addEventListener('mousedown', startPulling);
     document.addEventListener('mousemove', updatePulling);
     document.addEventListener('mouseup', shootArrow);
@@ -136,6 +145,7 @@ function gameLoop() {
                 if (target.health <= 0) {
                     targets.splice(targetIndex, 1);
                     score += 10;
+                    spawnNewTarget();
                 }
                 arrows.splice(index, 1); // Remove arrow
                 updateUI();
@@ -161,6 +171,7 @@ function gameLoop() {
             playerHealth -= 10;
             if (playerHealth <= 0) {
                 alert('Game Over');
+                score = 0; // Reset score
                 document.location.reload();
             }
             enemyArrows.splice(index, 1); // Remove arrow
@@ -183,6 +194,12 @@ function gameLoop() {
     });
 
     requestAnimationFrame(gameLoop);
+}
+
+// Spawn a new target at a random location
+function spawnNewTarget() {
+    const { x, y } = getRandomPosition();
+    targets.push(new Target(x, y));
 }
 
 // Start pulling back the bow
