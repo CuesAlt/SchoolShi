@@ -48,3 +48,53 @@ h1 {
 .game-box:hover {
     background-color: #555555;
 }
+
+.hidden {
+    display: none;
+}
+
+#game1-content {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Calculator Styles */
+.calculator {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    width: 300px;
+}
+
+#calc-display {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    text-align: right;
+}
+
+.calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.calc-buttons button {
+    padding: 20px;
+    font-size: 1.5rem;
+    background-color: #444444;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.calc-buttons button:hover {
+    background-color: #666666;
+}
