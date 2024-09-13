@@ -23,6 +23,23 @@
             font-size: 1.2rem;
             margin: 10px;
         }
+
+        .health-bar {
+            position: absolute;
+            height: 20px;
+            border: 2px solid #ffffff;
+            background-color: #ff0000;
+            z-index: 10;
+        }
+
+        .player-health-bar {
+            top: 10px;
+            left: 10px;
+        }
+
+        .target-health-bar {
+            background-color: #00ff00;
+        }
     </style>
 </head>
 <body>
@@ -33,7 +50,7 @@
     <main>
         <div class="game-container">
             <div id="score">Score: 0</div>
-            <div id="health">Health: 100</div>
+            <div id="health" class="player-health-bar">Health: 100</div>
             <canvas id="gameCanvas" width="800" height="600"></canvas>
         </div>
     </main>
