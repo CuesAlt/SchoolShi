@@ -12,13 +12,12 @@
             font-family: Arial, sans-serif;
             background-color: black;
             color: white;
-            transition: background-color 0.5s, color 0.5s;
         }
 
         /* Title Styling */
         h1 {
             text-align: center;
-            color: linear-gradient(to right, purple, green);
+            color: purple;
             font-size: 3em;
             margin-top: 20px;
         }
@@ -50,73 +49,10 @@
             background-color: #555;
             transform: scale(1.05);
         }
-
-        /* Dark Mode & Light Mode Toggle Switch */
-        .switch {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .switch input {
-            display: none;
-        }
-
-        .slider {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            background-color: #ccc;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-
-        .slider::before {
-            content: '';
-            position: absolute;
-            width: 26px;
-            height: 26px;
-            background-color: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s;
-        }
-
-        input:checked + .slider::before {
-            transform: translateX(30px);
-        }
-
-        input:checked + .slider {
-            background-color: #666;
-        }
-
-        /* Light Mode */
-        body.light-mode {
-            background-color: white;
-            color: black;
-        }
-
-        body.light-mode .box {
-            background-color: #ddd;
-            color: black;
-        }
-
-        body.light-mode .box:hover {
-            background-color: #bbb;
-        }
     </style>
 </head>
 <body>
     <h1>Devin’s Website</h1>
-
-    <!-- Dark Mode Switch -->
-    <div class="switch">
-        <label>
-            <input type="checkbox" id="modeSwitch">
-            <span class="slider"></span>
-        </label>
-    </div>
 
     <!-- Container for Boxes -->
     <div class="box-container" id="boxContainer">
@@ -124,18 +60,6 @@
     </div>
 
     <script>
-        // JavaScript for Light/Dark Mode Toggle
-        const modeSwitch = document.getElementById('modeSwitch');
-        const body = document.body;
-
-        modeSwitch.addEventListener('change', function() {
-            if (this.checked) {
-                body.classList.add('light-mode');
-            } else {
-                body.classList.remove('light-mode');
-            }
-        });
-
         // JavaScript to Generate Multiple Boxes
         const boxContainer = document.getElementById('boxContainer');
         const games = [
