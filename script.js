@@ -59,8 +59,3 @@ function clearDisplay() {
     currentOperation = '';
     document.getElementById('calc-display').value = '';
 }
-
-// Event listener for Game 1
-document.getElementById('game1').addEventListener('click', function() {
-    document.getElementById('game1-content').classList.toggle('hidden');
-});
