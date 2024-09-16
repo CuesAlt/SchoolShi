@@ -132,3 +132,116 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* Ask Me Anything styling */
+.ai-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#question {
+    width: 100%;
+    height: 150px;
+    background-color: #222;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    resize: vertical;
+}
+
+#ask-button {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#ask-button:hover {
+    background-color: #e6b800;
+}
+
+#ask-button:active {
+    background-color: #cc9900;
+}
+
+#answer-container {
+    margin-top: 20px;
+}
+
+#answer-container h3 {
+    font-size: 22px;
+    color: #ffcc00;
+}
+
+#answer {
+    font-size: 18px;
+    color: #ddd;
+}
+
+/* Dictionary styling */
+.dictionary-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#search-input {
+    width: calc(100% - 40px);
+    height: 50px;
+    background-color: #222;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#search-button {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#search-button:hover {
+    background-color: #e6b800;
+}
+
+#search-button:active {
+    background-color: #cc9900;
+}
+
+#definition-container {
+    margin-top: 20px;
+}
+
+#definition-container h3 {
+    font-size: 22px;
+    color: #ffcc00;
+}
+
+#definition {
+    font-size: 18px;
+    color: #ddd;
+}
