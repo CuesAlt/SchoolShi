@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ask Me Anything</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="game4.js" defer></script>
 </head>
 <body>
     <header>
@@ -14,15 +12,15 @@
     </header>
 
     <main>
-        <div class="chatbot-container">
-            <div class="chat-area" id="chatArea">
-                <div class="bot-message">Hello! Ask me anything!</div>
-            </div>
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Type your question here...">
-                <button id="sendBtn">Ask</button>
+        <div class="ai-container">
+            <textarea id="question" placeholder="Ask your question here..."></textarea>
+            <button id="ask-button">Ask</button>
+            <div id="answer-container">
+                <h3>Answer:</h3>
+                <p id="answer"></p>
             </div>
         </div>
     </main>
 </body>
+<script src="ai.js"></script>
 </html>
