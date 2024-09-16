@@ -10,7 +10,9 @@ document.getElementById('search-button').addEventListener('click', function() {
     // Static dictionary data
     const dictionary = {
         'example': 'A representative form or pattern.',
-        'dictionary': 'A book or electronic resource that lists the words of a language and gives their meaning.'
+        'dictionary': 'A book or electronic resource that lists the words of a language and gives their meaning.',
+        'hello': 'A greeting or expression of goodwill.',
+        'world': 'The earth, together with all of its countries and peoples.'
     };
 
     const definition = dictionary[word.toLowerCase()] || 'Definition not found.';
