@@ -3,39 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calculator - Devin's Website</title>
+    <title>Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Calculator</h1>
-    </header>
+    <div class="calculator">
+        <input type="text" id="calc-display" disabled>
+        <div class="calc-buttons">
+            <button class="calc-btn">7</button>
+            <button class="calc-btn">8</button>
+            <button class="calc-btn">9</button>
+            <button class="calc-btn">/</button>
 
-    <main>
-        <div class="calculator">
-            <input type="text" id="calc-display" disabled />
-            <div class="calc-buttons">
-                <button onclick="appendToDisplay('1')">1</button>
-                <button onclick="appendToDisplay('2')">2</button>
-                <button onclick="appendToDisplay('3')">3</button>
-                <button onclick="performOperation('+')">+</button>
-                <button onclick="appendToDisplay('4')">4</button>
-                <button onclick="appendToDisplay('5')">5</button>
-                <button onclick="appendToDisplay('6')">6</button>
-                <button onclick="performOperation('-')">-</button>
-                <button onclick="appendToDisplay('7')">7</button>
-                <button onclick="appendToDisplay('8')">8</button>
-                <button onclick="appendToDisplay('9')">9</button>
-                <button onclick="performOperation('*')">*</button>
-                <button onclick="appendToDisplay('0')">0</button>
-                <button onclick="clearDisplay()">C</button>
-                <button onclick="calculate()">=</button>
-                <button onclick="performOperation('/')">/</button>
-            </div>
+            <button class="calc-btn">4</button>
+            <button class="calc-btn">5</button>
+            <button class="calc-btn">6</button>
+            <button class="calc-btn">*</button>
+
+            <button class="calc-btn">1</button>
+            <button class="calc-btn">2</button>
+            <button class="calc-btn">3</button>
+            <button class="calc-btn">-</button>
+
+            <button class="calc-btn">0</button>
+            <button class="calc-btn">.</button>
+            <button class="calc-btn">=</button>
+            <button class="calc-btn">+</button>
         </div>
-    </main>
-
-    <script src="script.js"></script>
+    </div>
 </body>
+<script src="calculator.js"></script>
 </html>
