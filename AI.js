@@ -7,7 +7,7 @@ document.getElementById('ask-button').addEventListener('click', async function()
         return;
     }
 
-    const apiKey = 'YOUR_OPENAI_API_KEY'; // Replace with your OpenAI API key
+    const apiKey = 'sk-WRqfV4K2AG3XDcynH1Wlc1v-2x96SbUs-p5XAEw8RIT3BlbkFJ5bUzAtTkm4Xuy1T-rYX4TlkUoB-ozMI6XtCDZynmUA'; // Replace with your OpenAI API key
     const apiUrl = 'https://api.openai.com/v1/completions';
 
     try {
