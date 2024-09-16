@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ask Me Anything</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game4.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Ask Me Anything</h1>
+    </header>
+
+    <main>
+        <div class="chatbot-container">
+            <div class="chat-area" id="chatArea">
+                <div class="bot-message">Hello! Ask me anything!</div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your question here...">
+                <button id="sendBtn">Ask</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
