@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dictionary</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="dictionary.js" defer></script>
 </head>
 <body>
     <header>
@@ -15,14 +13,14 @@
 
     <main>
         <div class="dictionary-container">
-            <div class="search-area">
-                <input type="text" id="wordInput" placeholder="Enter a word..." />
-                <button id="searchBtn">Search</button>
-            </div>
-            <div id="definitionResult" class="definition-area">
-                <p>Type a word to get the definition</p>
+            <input type="text" id="search-input" placeholder="Type a word to search...">
+            <button id="search-button">Search</button>
+            <div id="definition-container">
+                <h3>Definition:</h3>
+                <p id="definition">Type a word and click search to see its definition.</p>
             </div>
         </div>
     </main>
 </body>
+<script src="dictionary.js"></script>
 </html>
