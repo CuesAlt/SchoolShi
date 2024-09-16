@@ -1,27 +1,16 @@
-document.getElementById('searchBtn').addEventListener('click', () => {
-    const word = document.getElementById('wordInput').value.trim();
-    if (word) {
-        fetchDefinition(word);
-    } else {
-        document.getElementById('definitionResult').innerHTML = `<p>Please enter a word to search.</p>`;
+document.getElementById('search-button').addEventListener('click', function() {
+    const word = document.getElementById('search-input').value;
+    if (word.trim() === '') {
+        document.getElementById('definition').textContent = 'Please enter a word.';
+        return;
     }
+    
+    // Dummy data - replace with actual dictionary API or data
+    const dictionary = {
+        'example': 'A representative form or pattern.',
+        'dictionary': 'A book or electronic resource that lists the words of a language and gives their meaning.'
+    };
+
+    const definition = dictionary[word.toLowerCase()] || 'Definition not found.';
+    document.getElementById('definition').textContent = definition;
 });
-
-async function fetchDefinition(word) {
-    const resultContainer = document.getElementById('definitionResult');
-    resultContainer.innerHTML = '<p>Searching...</p>';
-
-    try {
-        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        const data = await response.json();
-
-        if (data.title === "No Definitions Found") {
-            resultContainer.innerHTML = `<p>No definition found for "${word}".</p>`;
-        } else {
-            const definition = data[0].meanings[0].definitions[0].definition;
-            resultContainer.innerHTML = `<p><strong>${word}:</strong> ${definition}</p>`;
-        }
-    } catch (error) {
-        resultContainer.innerHTML = '<p>Error retrieving the definition.</p>';
-    }
-}
