@@ -4,61 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bow Archer - Devin's Website</title>
+    <title>Bow Archer Game</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .game-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        #gameCanvas {
-            border: 1px solid #ffffff;
-        }
-
-        #score, #health {
-            color: #ffffff;
-            font-size: 1.2rem;
-            margin: 10px;
-        }
-
-        .health-bar {
-            position: absolute;
-            height: 20px;
-            border: 2px solid #ffffff;
-            background-color: #ff0000;
-            z-index: 10;
-        }
-
-        .player-health-bar {
-            top: 10px;
-            left: 10px;
-        }
-
-        .target-health-bar {
-            background-color: #00ff00;
-        }
-
-        .enemy-health-bar {
-            position: absolute;
-            height: 20px;
-            border: 2px solid #ffffff;
-            background-color: #ff0000;
-        }
-    </style>
 </head>
 <body>
     <header>
-        <h1>Bow Archer</h1>
+        <h1>Bow Archer Game</h1>
     </header>
 
     <main>
         <div class="game-container">
             <div id="score">Score: 0</div>
-            <div id="health" class="player-health-bar">Health: 100</div>
             <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <button id="restartButton">Restart</button>
         </div>
     </main>
 
