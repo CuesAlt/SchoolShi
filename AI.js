@@ -1,12 +1,37 @@
-document.getElementById('ask-button').addEventListener('click', function() {
-    const question = document.getElementById('question').value;
-    const answer = document.getElementById('answer');
+document.getElementById('ask-button').addEventListener('click', async function() {
+    const question = document.getElementById('question').value.trim();
+    const answerElement = document.getElementById('answer');
 
-    if (question.trim() === '') {
-        answer.textContent = 'Please enter a question.';
+    if (question === '') {
+        answerElement.textContent = 'Please enter a question.';
         return;
     }
 
-    // Dummy response - replace with actual AI response logic
-    answer.textContent = 'This is a placeholder answer. Implement your AI logic here.';
+    const apiKey = 'YOUR_OPENAI_API_KEY'; // Replace with your OpenAI API key
+    const apiUrl = 'https://api.openai.com/v1/completions';
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'text-davinci-003', // Use the appropriate model ID here
+                prompt: question,
+                max_tokens: 150
+            })
+        });
+
+        const data = await response.json();
+        if (data.choices && data.choices[0]) {
+            answerElement.textContent = data.choices[0].text.trim();
+        } else {
+            answerElement.textContent = 'No answer found.';
+        }
+    } catch (error) {
+        console.error('Error fetching response:', error);
+        answerElement.textContent = 'Error fetching the answer.';
+    }
 });
