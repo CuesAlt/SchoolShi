@@ -21,9 +21,12 @@
   <script>
     function open_fullscreen() {
       var iframe = document.querySelector('iframe');
-      iframe.requestFullscreen();
+      var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+      if (requestFullScreen) {
+        requestFullScreen.bind(iframe)();
+      }
     }
   </script>
-  <button onclick="open_fullscreen()">Fullscreen</button>
+  <button onclick="open_fullscreen()">Open Fullscreen</button>
 </body>
 </html>
