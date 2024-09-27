@@ -7,14 +7,26 @@ document.getElementById('search-button').addEventListener('click', function() {
         return;
     }
 
-    // Static dictionary data
-    const dictionary = {
-        'example': 'A representative form or pattern.',
-        'dictionary': 'A book or electronic resource that lists the words of a language and gives their meaning.',
-        'hello': 'A greeting or expression of goodwill.',
-        'world': 'The earth, together with all of its countries and peoples.'
-    };
+    // Fetch definition from the Free Dictionary API
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Definition not found.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Extract definition from the API response
+            const meanings = data[0].meanings;
+            let definitionText = '';
+            
+            meanings.forEach(meaning => {
+                definitionText += `${meaning.partOfSpeech}: ${meaning.definitions[0].definition}\n`;
+            });
 
-    const definition = dictionary[word.toLowerCase()] || 'Definition not found.';
-    definitionElement.textContent = definition;
+            definitionElement.textContent = definitionText;
+        })
+        .catch(error => {
+            definitionElement.textContent = 'Definition not found.';
+        });
 });
