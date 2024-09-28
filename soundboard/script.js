@@ -4,7 +4,7 @@ const buttons = [
   { text: 'Lol', audioClass: 'Lol', soundUrl: 'sounds/lol.mp3' },
   { text: 'We Dont Care', audioClass: 'We Dont Care', soundUrl: 'sounds/wedontcare.mp3' },
   { text: 'Erika', audioClass: 'Erika', soundUrl: 'sounds/erica.mp3' },
-  { text: 'Boo', audioClass: 'Boo', soundUrl: 'sounds/boo.mp3},
+  { text: 'Boo', audioClass: 'Boo', soundUrl: 'sounds/boo.mp3' },
   { text: 'Yay', audioClass: 'Yay', soundUrl: 'sounds/yay.mp3' },
   { text: 'Tada', audioClass: 'Tada', soundUrl: 'sounds/tada.mp3' },
   { text: 'Victory', audioClass: 'Victory', soundUrl: 'sounds/victory.mp3' },
@@ -32,13 +32,15 @@ for (let i = 0; i < 5; i++) {
   buttonsContainer.appendChild(row);
 
   for (let j = 0; j < 5; j++) {
-    const button = document.createElement('button');
-    button.className = 'button';
-    button.textContent = buttons[i * 5 + j].text;
-    button.addEventListener('click', () => {
-      const audio = new Audio(buttons[i * 5 + j].soundUrl);
-      audio.play();
-    });
-    row.appendChild(button);
+    if (i * 5 + j < buttons.length) {
+      const button = document.createElement('button');
+      button.className = 'button';
+      button.textContent = buttons[i * 5 + j].text;
+      button.addEventListener('click', () => {
+        const audio = new Audio(buttons[i * 5 + j].soundUrl);
+        audio.play();
+      });
+      row.appendChild(button);
+    }
   }
 }
