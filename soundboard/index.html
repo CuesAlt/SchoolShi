@@ -3,17 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sound Board</title>
+    <title>Enhanced Soundboard</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color: #f9f9f9;
+        text-align: center;
+        margin: 0;
+        padding: 0;
       }
 
       .container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 40px auto;
         text-align: center;
+      }
+
+      .upload-section {
+        margin-bottom: 30px;
+      }
+
+      input[type="file"], input[type="text"], button {
+        padding: 10px;
+        margin: 10px;
+        font-size: 16px;
       }
 
       .buttons {
@@ -28,80 +41,126 @@
         margin-bottom: 20px;
       }
 
+      .button-container {
+        margin: 10px;
+        text-align: center;
+      }
+
       .button {
-        background-color: #ff3333;
+        background-color: #333;
         border: none;
         border-radius: 50%;
         color: white;
         padding: 20px;
         text-align: center;
-        text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin-bottom: 5px;
         cursor: pointer;
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .button:hover {
-        background-color: #ff6666;
+        background-color: #555;
+      }
+
+      .button-label {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .icon-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 5px;
+      }
+
+      .icon {
+        font-size: 18px;
+        margin: 0 5px;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .icon:hover {
+        color: #333;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Click on a button to play a sound!</h1>
-      <div class="buttons"></div>
+      <h1>Enhanced Soundboard</h1>
+      
+      <!-- Upload Section -->
+      <div class="upload-section">
+        <input type="file" id="soundFile" accept="audio/*" />
+        <input type="text" id="soundName" placeholder="Enter Sound Name" />
+        <button onclick="uploadSound()">Upload Sound</button>
+      </div>
+
+      <!-- Sound Buttons -->
+      <div class="buttons" id="buttonsContainer"></div>
     </div>
 
     <script>
-      const buttonsContainer = document.querySelector('.buttons');
-
       const buttons = [
-        { text: 'Lol', audioClass: 'Lol', soundUrl: 'sounds/lol.mp3' },
-        { text: 'We Dont Care', audioClass: 'We Dont Care', soundUrl: 'sounds/wedontcare.mp3' },
-        { text: 'Erika', audioClass: 'Erika', soundUrl: 'sounds/erika.mp3' },
-        { text: 'i live with roaches', audioClass: 'i live with roaches', soundUrl: 'sounds/roches.mp3' },
-        { text: 'Yay', audioClass: 'Yay', soundUrl: 'sounds/yay.mp3' },
-        { text: 'Tada', audioClass: 'Tada', soundUrl: 'sounds/tada.mp3' },
-        { text: 'Victory', audioClass: 'Victory', soundUrl: 'sounds/victory.mp3' },
-        { text: 'Wrong', audioClass: 'Wrong', soundUrl: 'sounds/wrong.mp3' },
-        { text: 'Alarm', audioClass: 'Alarm', soundUrl: 'sounds/alarm.mp3' },
-        { text: 'BuDumTss', audioClass: 'BuDumTss', soundUrl: 'sounds/budumtss.mp3' },
-        { text: 'Woof', audioClass: 'Woof', soundUrl: 'sounds/woof.mp3' },
-        { text: 'Laugh', audioClass: 'Laugh', soundUrl: 'sounds/laugh.mp3' },
-        { text: 'TskTsk', audioClass: 'TskTsk', soundUrl: 'sounds/tsktsk.mp3' },
-        { text: 'Sneeze', audioClass: 'Sneeze', soundUrl: 'sounds/sneeze.mp3' },
-        { text: 'Orchestra', audioClass: 'Orchestra', soundUrl: 'sounds/orchestra.mp3' },
-        { text: 'Trumpets', audioClass: 'Trumpets', soundUrl: 'sounds/trumpets.mp3' },
-        { text: 'Yawn', audioClass: 'Yawn', soundUrl: 'sounds/yawn.mp3' },
-        { text: 'Crunch', audioClass: 'Crunch', soundUrl: 'sounds/crunch.mp3' },
-        { text: 'Mystery', audioClass: 'Mystery', soundUrl: 'sounds/mystery.mp3' },
-        { text: 'Videogame', audioClass: 'Videogame', soundUrl: 'sounds/videogame.mp3' },
-        { text: 'WarHorn', audioClass: 'WarHorn', soundUrl: 'sounds/warhorn.mp3' },
-        { text: 'Thunder', audioClass: 'Thunder', soundUrl: 'sounds/thunder.mp3' },
-        { text: 'Horror', audioClass: 'Horror', soundUrl: 'sounds/horror.mp3' }
+        { text: 'Lol', soundUrl: 'sounds/lol.mp3' },
+        { text: 'We Dont Care', soundUrl: 'sounds/wedontcare.mp3' },
+        { text: 'Erika', soundUrl: 'sounds/erika.mp3' },
+        { text: 'i live with roches', soundUrl: 'sounds/roches.mp3' },
+        // Add other initial sounds here...
       ];
 
-      for (let i = 0; i < 5; i++) {
-        const row = document.createElement('div');
-        row.className = 'row';
-        buttonsContainer.appendChild(row);
+      const buttonsContainer = document.getElementById('buttonsContainer');
 
-        for (let j = 0; j < 4; j++) {
-          const buttonData = buttons[i * 4 + j];
-          const button = document.createElement('button');
-          button.className = 'button';
-          button.textContent = buttonData.text;
-          row.appendChild(button);
+      // Function to create buttons dynamically
+      function createButton(text, soundUrl) {
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
 
-          // Add audio functionality
-          const audio = new Audio(buttonData.soundUrl);
-          
-          button.addEventListener('click', () => {
-            audio.play();
-          });
+        const button = document.createElement('button');
+        button.className = 'button';
+        button.textContent = text;
+
+        const audio = new Audio(soundUrl);
+        button.addEventListener('click', () => {
+          audio.play();
+        });
+
+        const label = document.createElement('div');
+        label.className = 'button-label';
+        label.textContent = text;
+
+        const iconContainer = document.createElement('div');
+        iconContainer.className = 'icon-container';
+        iconContainer.innerHTML = `
+          <span class="icon">❤️</span>
+          <span class="icon">🔁</span>
+          <span class="icon">⬇️</span>
+        `;
+
+        buttonContainer.appendChild(button);
+        buttonContainer.appendChild(label);
+        buttonContainer.appendChild(iconContainer);
+        buttonsContainer.appendChild(buttonContainer);
+      }
+
+      // Create initial buttons
+      buttons.forEach((btn) => createButton(btn.text, btn.soundUrl));
+
+      // Upload Functionality
+      function uploadSound() {
+        const soundFile = document.getElementById('soundFile').files[0];
+        const soundName = document.getElementById('soundName').value;
+
+        if (soundFile && soundName) {
+          const soundUrl = URL.createObjectURL(soundFile); // Temporary URL for local testing
+          createButton(soundName, soundUrl);
+        } else {
+          alert('Please upload a sound and give it a name.');
         }
       }
     </script>
