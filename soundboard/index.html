@@ -51,7 +51,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Click on a button to play a sound !</h1>
+      <h1>Click on a button to play a sound!</h1>
       <div class="buttons"></div>
     </div>
 
@@ -62,7 +62,7 @@
         { text: 'Lol', audioClass: 'Lol', soundUrl: 'sounds/lol.mp3' },
         { text: 'We Dont Care', audioClass: 'We Dont Care', soundUrl: 'sounds/wedontcare.mp3' },
         { text: 'Erika', audioClass: 'Erika', soundUrl: 'sounds/erica.mp3' },
-        { text: 'Boo', audioClass: 'Boo', soundUrl: 'sounds/boo.mp3' },
+        { text: 'Boo', audioClass: 'Boo', soundUrl: 'sounds/roches.mp3' },
         { text: 'Yay', audioClass: 'Yay', soundUrl: 'sounds/yay.mp3' },
         { text: 'Tada', audioClass: 'Tada', soundUrl: 'sounds/tada.mp3' },
         { text: 'Victory', audioClass: 'Victory', soundUrl: 'sounds/victory.mp3' },
@@ -87,13 +87,21 @@
       for (let i = 0; i < 5; i++) {
         const row = document.createElement('div');
         row.className = 'row';
- buttonsContainer.appendChild(row);
+        buttonsContainer.appendChild(row);
 
         for (let j = 0; j < 4; j++) {
+          const buttonData = buttons[i * 4 + j];
           const button = document.createElement('button');
           button.className = 'button';
-          button.textContent = buttons[i * 4 + j].text;
+          button.textContent = buttonData.text;
           row.appendChild(button);
+
+          // Add audio functionality
+          const audio = new Audio(buttonData.soundUrl);
+          
+          button.addEventListener('click', () => {
+            audio.play();
+          });
         }
       }
     </script>
