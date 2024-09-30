@@ -1,43 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>ChatGPT Bot</title>
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Add your own styles here */
+        .chat-box {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .icon {
+            margin-right: 10px;
+        }
+        .user, .bot {
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+        }
+        .user {
+            background-color: #d1e7dd;
+            margin-left: auto;
+        }
+        .bot {
+            background-color: #f8d7da;
+        }
+    </style>
 </head>
-
 <body>
+    <div id="chat-log"></div>
+    <input type="text" id="user-input" placeholder="Type a message..." />
+    <button id="send-button">
+        <i id="button-icon" class="fa-solid fa-paper-plane"></i>
+    </button>
+    <div class="info">Type 'developer' for more info.</div>
 
-    <div class="container">
-        <div class="header">
-            <h3>ChatGPT Bot</h3>
-        </div>
+    <script>
+        const chatLog = document.getElementById('chat-log'),
+            userInput = document.getElementById('user-input'),
+            sendButton = document.getElementById('send-button'),
+            buttonIcon = document.getElementById('button-icon'),
+            info = document.querySelector('.info');
 
-        <div class="info">
-            <a href="https://Youtube.com/@CueGaming69" target="_blank">
-                Coded By CueGaming
-            </a>
-        </div>
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
 
-        <div class="chat-container">
-            <div id="chat-log"></div>
-        </div>
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') {
+                return;
+            }
+            else if (message === 'developer') {
+                userInput.value = '';
+                appendMessage('user', message);
+                setTimeout(() => {
+                    appendMessage('bot', 'This Source Coded By Reza Mehdikhanlou \nYoutube : @AsmrProg');
+                    buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+                    buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+                }, 2000);
+                return;
+            }
 
-        <div class="input-container">
-            <input type="text" id="user-input" placeholder="Send a message.">
-            <button id="send-button">
-                <i class="fa-solid fa-paper-plane" id="button-icon"></i>
-            </button>
-        </div>
+            appendMessage('user', message);
+            userInput.value = '';
 
-    </div>
+            const options = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    'X-RapidAPI-Key': 'e3374783aemsh3be56fb31a1d6bbp1c56ebjsnf0b01fd7e93c', // Your API key
+                    'X-RapidAPI-Host': 'open-ai21.p.rapidapi.com' // Your correct API host
+                },
+                body: JSON.stringify({
+                    "messages": [
+                        { "role": "user", "content": message }
+                    ]
+                })
+            };
 
+            fetch('https://open-ai21.p.rapidapi.com/chat/completions', options)
+                .then((response) => response.json())
+                .then((response) => {
+                    console.log(response);
+                    if (response.choices && response.choices.length > 0) {
+                        appendMessage('bot', response.choices[0].message.content);
+                    } else {
+                        appendMessage('bot', 'Error: Unexpected API response.');
+                    }
 
-    <script src="index.js"></script>
+                    buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+                    buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+                })
+                .catch((err) => {
+                    console.error(err);
+                    appendMessage('bot', 'Error: Check Your API Key!');
+                    buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
+                    buttonIcon.classList.remove('fas', 'fa-spinner', 'fa-pulse');
+                });
+        }
+
+        function appendMessage(sender, message) {
+            info.style.display = "none";
+            buttonIcon.classList.remove('fa-solid', 'fa-paper-plane');
+            buttonIcon.classList.add('fas', 'fa-spinner', 'fa-pulse');
+
+            const messageElement = document.createElement('div');
+            const iconElement = document.createElement('div');
+            const chatElement = document.createElement('div');
+            const icon = document.createElement('i');
+
+            chatElement.classList.add("chat-box");
+            iconElement.classList.add("icon");
+            messageElement.classList.add(sender);
+            messageElement.innerText = message;
+
+            if (sender === 'user') {
+                icon.classList.add('fa-regular', 'fa-user');
+                iconElement.setAttribute('id', 'user-icon');
+            } else {
+                icon.classList.add('fa-solid', 'fa-robot');
+                iconElement.setAttribute('id', 'bot-icon');
+            }
+
+            iconElement.appendChild(icon);
+            chatElement.appendChild(iconElement);
+            chatElement.appendChild(messageElement);
+            chatLog.appendChild(chatElement);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
 </body>
-
 </html>
