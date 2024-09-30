@@ -57,7 +57,7 @@ function sendMessage() {
         // `{"model":"gpt-3.5-turbo","messages":[{"role":"user","content":"${message}"}]}`
     };
     // official api : 'https://openai80.p.rapidapi.com/chat/completions';
-    fetch('https://chatgpt53.p.rapidapi.com/', options).then((response) => response.json()).then((response) => {
+    fetch('open-ai21.p.rapidapi.com', options).then((response) => response.json()).then((response) => {
         appendMessage('bot', response.choices[0].message.content);
 
         buttonIcon.classList.add('fa-solid', 'fa-paper-plane');
