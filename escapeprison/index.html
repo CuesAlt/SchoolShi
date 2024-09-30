@@ -9,10 +9,18 @@
       padding: 0;
       overflow: hidden;
     }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
-  <iframe allowfullscreen="" class="game-iframe" frameborder="0" height="100%" id="game-area" src="https://edumaths.github.io/s4/escaping-the-prison" width="100%"></iframe>
+  <iframe allowfullscreen="" frameborder="0" id="game-area" src="https://edumaths.github.io/s4/escaping-the-prison"></iframe>
   <script>
     function open_fullscreen() {
       var iframe = document.getElementById("game-area");
