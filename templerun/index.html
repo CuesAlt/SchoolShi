@@ -1,22 +1,28 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML>
+<html lang="en-US">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-    }
-  </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #game {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
-  <iframe src="https://gamemonetize.co/game/pkyyuilfrqkcdnmrxsg60j22ypk0peje/" frameborder="0" allowfullscreen></iframe>
+    <div id="game"></div>
+    <script>
+        function loadMainGame() {
+            var html = `<iframe class="game-iframe iframeloader" id="game-area" src="https://gameftp.agariodns.cyou/temple-run-2" style="width:100%;height:100%" scrolling="none" frameborder="0" allowfullscreen="" tabindex="0"></iframe>`;
+            document.getElementById("game").innerHTML = html;
+        }
+        loadMainGame();
+    </script>
 </body>
 </html>
