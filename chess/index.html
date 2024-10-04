@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html dir="ltr" lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -9,15 +9,14 @@
       padding: 0;
       overflow: hidden;
     }
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
   </style>
 </head>
 <body>
-  <iframe allowfullscreen="" class="game-iframe" frameborder="0" height="100%" id="game-area" src="https://premium158.github.io/g20/casual-chess" width="100%"></iframe>
-  <script>
-    function open_fullscreen() {
-      var iframe = document.getElementById("game-area");
-      iframe.requestFullscreen();
-    }
-  </script>
+  <iframe allowfullscreen="" frameborder="0" src="https://premium158.github.io/g20/chess-grandmaster"></iframe>
 </body>
 </html>
