@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html>
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess</title>
   <style>
     body {
       margin: 0;
@@ -17,6 +18,18 @@
   </style>
 </head>
 <body>
-  <iframe allowfullscreen="" frameborder="0" src="https://premium158.github.io/g20/chess-grandmaster"></iframe>
+  <iframe src="https://www.chess.com" frameborder="0"></iframe>
+  <script>
+    function open_fullscreen() {
+      var iframe = document.querySelector('iframe');
+      var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+      if (requestFullScreen) {
+        requestFullScreen.call(iframe);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      open_fullscreen();
+    });
+  </script>
 </body>
 </html>
