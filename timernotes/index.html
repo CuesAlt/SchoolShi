@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Timer and Notes App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #333;
+        }
+        #timer {
+            font-size: 3em;
+            margin: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 1em;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .button:disabled {
+            background-color: #ccc;
+        }
+        #notes-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task Timer & Notes</h1>
+
+    <!-- Timer Section -->
+    <div id="timer">00:00:00</div>
+    <button class="button" onclick="startTimer()">Start</button>
+    <button class="button" onclick="stopTimer()" disabled>Stop</button>
+    <button class="button" onclick="resetTimer()" disabled>Reset</button>
+
+    <!-- Notes Section -->
+    <div id="notes-section">
+        <h2>Quick Notes</h2>
+        <textarea id="notes" placeholder="Write your notes here..."></textarea>
+    </div>
+
+    <script>
+        let timer;
+        let seconds = 0, minutes = 0, hours = 0;
+        let isRunning = false;
+
+        function startTimer() {
+            if (!isRunning) {
+                timer = setInterval(function() {
+                    seconds++;
+                    if (seconds == 60) {
+                        seconds = 0;
+                        minutes++;
+                    }
+                    if (minutes == 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+
+                    // Display timer
+                    document.getElementById("timer").innerHTML =
+                        (hours < 10 ? "0" + hours : hours) + ":" +
+                        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                        (seconds < 10 ? "0" + seconds : seconds);
+                }, 1000);
+                isRunning = true;
+                document.querySelector('.button[onclick="stopTimer()"]').disabled = false;
+                document.querySelector('.button[onclick="resetTimer()"]').disabled = false;
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+            isRunning = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            document.getElementById("timer").innerHTML = "00:00:00";
+            isRunning = false;
+            document.querySelector('.button[onclick="stopTimer()"]').disabled = true;
+            document.querySelector('.button[onclick="resetTimer()"]').disabled = true;
+        }
+    </script>
+
+</body>
+</html>
