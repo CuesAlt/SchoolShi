@@ -7,43 +7,53 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
+            background-color: #1c1c1c;
+            color: #ffcc00;
+            text-align: center;
+            padding: 20px;
         }
         h1 {
-            color: #333;
+            color: #ffcc00;
+            font-size: 2.5em;
+            margin-bottom: 20px;
         }
         #timer {
             font-size: 3em;
-            margin: 10px;
+            margin: 20px 0;
+            color: #ffcc00;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
         .button {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin: 5px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
             cursor: pointer;
             border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
+            border-radius: 10px;
+            background-color: #333;
+            color: #ffcc00;
+            transition: background-color 0.3s ease;
         }
-        .button:disabled {
-            background-color: #ccc;
+        .button:hover {
+            background-color: #ffcc00;
+            color: #333;
         }
         #notes-section {
-            margin-top: 20px;
-            text-align: center;
+            margin-top: 30px;
         }
         textarea {
-            width: 300px;
-            height: 100px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            width: 90%;
+            max-width: 400px;
+            height: 150px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background-color: #333;
+            color: #ffcc00;
+            font-size: 1.1em;
         }
     </style>
 </head>
@@ -52,7 +62,7 @@
     <h1>Task Timer & Notes</h1>
 
     <!-- Timer Section -->
-    <div id="timer">00:00:00</div>
+    <div id="timer">00:00:00</div><br>
     <button class="button" onclick="startTimer()">Start</button>
     <button class="button" onclick="stopTimer()" disabled>Stop</button>
     <button class="button" onclick="resetTimer()" disabled>Reset</button>
